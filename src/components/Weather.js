@@ -8,7 +8,7 @@ export default class Weather extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { city: '' };
+    this.state = { city: '', weather: [] };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -19,7 +19,9 @@ export default class Weather extends Component {
     axios.get(url)
       .then((response) => {
         console.log('Response ', response.data);
-        this.setState({ data: response.data });
+        this.setState((prevState, props) => ({ // this.setState(function(prevState, props) {
+          weather: [...prevState.weather, response.data]
+        }));
       })
       .catch((err) => {
         console.log('An error has occurred', err);
@@ -40,10 +42,36 @@ export default class Weather extends Component {
     return (
       <div>
         I'm the Weather component
+
         <form onSubmit={this.onFormSubmit}>
           <input type="text" name="city" onChange={this.onInputChange} value={this.state.city} />
           <button type="submit">Submit</button>
         </form>
+
+        <table>
+          <thead>
+            <tr>
+              <th>City</th>
+              <th>Temperature</th>
+              <th>Pressure</th>
+              <th>Humidity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.state.weather.map((w) => {
+                return (
+                  <tr>
+                    <th>{w.city.name}</th>
+                    <th>Temperature</th>
+                    <th>Pressure</th>
+                    <th>Humidity</th>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table>
 
       </div>
     )
