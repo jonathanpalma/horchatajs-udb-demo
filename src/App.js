@@ -4,6 +4,7 @@ import './App.css';
 
 import Counter from './components/Counter';
 import PropsExample from './components/PropsExample';
+import Weather from './components/Weather';
 
 class App extends Component {
   render() {
@@ -14,7 +15,7 @@ class App extends Component {
           <h1 className="App-title">HorchataJS - UDB</h1>
         </header>
         <div className="App-intro">
-          
+
           <h3>DEMO PROPS</h3>
           <PropsExample />
 
@@ -22,6 +23,11 @@ class App extends Component {
 
           <h3>DEMO STATE</h3>
           <Counter />
+
+          <br />
+
+          <h3>DEMO WEATHER</h3>
+          <Weather />
         </div>
       </div>
     );
