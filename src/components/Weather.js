@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 const API_KEY = '6a78596d062df78380eff5944c4e5567';
 const ROOT_URL = 'http://api.openweathermap.org/data/2.5/forecast?appid=' + API_KEY;
@@ -39,12 +40,29 @@ export default class Weather extends Component {
   }
 
   renderWeather(cityWeather) {
+    const name = cityWeather.city.name;
+    const temps = cityWeather.list.map(weather => weather.main.temp);
+    const pressures = cityWeather.list.map(weather => weather.main.pressure);
+    const humidities = cityWeather.list.map(weather => weather.main.humidity);
+
     return (
-      <tr key={cityWeather.city.name}>
-        <td>{cityWeather.city.name}</td>
-        <td>Temperature</td>
-        <td>Pressure</td>
-        <td>Humidity</td>
+      <tr key={name}>
+        <td>{name}</td>
+        <td>
+          <Sparklines height={120} width={180} data={temps}>
+            <SparklinesLine color="red" />
+          </Sparklines>
+        </td>
+        <td>
+          <Sparklines height={120} width={180} data={pressures}>
+            <SparklinesLine color="green" />
+          </Sparklines>
+        </td>
+        <td>
+          <Sparklines height={120} width={180} data={humidities}>
+            <SparklinesLine color="blue" />
+          </Sparklines>
+        </td>
       </tr>
     )
   }
