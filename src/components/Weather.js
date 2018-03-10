@@ -38,6 +38,17 @@ export default class Weather extends Component {
     this.fetchWeather(url);
   }
 
+  renderWeather(cityWeather) {
+    return (
+      <tr key={cityWeather.city.name}>
+        <td>{cityWeather.city.name}</td>
+        <td>Temperature</td>
+        <td>Pressure</td>
+        <td>Humidity</td>
+      </tr>
+    )
+  }
+
   render() {
     return (
       <div>
@@ -58,18 +69,7 @@ export default class Weather extends Component {
             </tr>
           </thead>
           <tbody>
-            {
-              this.state.weather.map((w) => {
-                return (
-                  <tr>
-                    <th>{w.city.name}</th>
-                    <th>Temperature</th>
-                    <th>Pressure</th>
-                    <th>Humidity</th>
-                  </tr>
-                )
-              })
-            }
+            {this.state.weather.map(this.renderWeather)}
           </tbody>
         </table>
 
